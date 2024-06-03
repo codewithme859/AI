@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ΛΉMΛD</title>
+    <link rel="stylesheet" href="assets/css/chatbot.css">
+   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="main">
+        <video id="mainVideo" autoplay muted>
+            <source src="Fonts/interface.mp4" type="video/mp4">
+        </video>
+        <audio id="myAudio" autoplay src="Fonts/a1.mp3"></audio>
+    </div>
+    <div class="main2" style="display: none;">
+        <video id="main2Video" autoplay muted loop>
+            <source src="Fonts/interface2.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <div class="navbar">
+                ΛΉMΛD
+            </div>
+            <div class="chat">
+                <div class="chat-box" id="chat-box">
+                    <!-- Messages will appear here -->
+                </div>
+                <div class="input-container">
+                    <input type="text" id="user-input" placeholder="Type a message">
+                    <button id="send-button">SEND</button>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // loading platform Animation
+        // Get the video elements
+        var mainVideo = document.getElementById('mainVideo');
+        var main2Video = document.getElementById('main2Video');
+        var mainDiv = document.querySelector('.main');
+        var main2Div = document.querySelector('.main2');
+
+        //Add an event listener for when the main video ends
+        mainVideo.addEventListener('ended', function() {
+            // Hide the main video div
+            mainDiv.style.display = 'none';
+            // Show the main2 video div
+            main2Div.style.display = 'block';
+            // Play the main2 video
+            main2Video.play();
+        });
+        // chat bot js 
+        document.getElementById('send-button').addEventListener('click', sendMessage);
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() !== '') {
+                displayMessage(userInput);
+                document.getElementById('user-input').value = '';
+                getBotResponse(userInput);
+            }
+        }
+
+        function displayMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', { sender } - message);
+            messageElement.textContent = message;
+          document.getElementById('chat-box').appendChild(messageElement);
+           document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
+        }
+
+        function getBotResponse(userInput) {
+            let botResponse = '';
+
+            // Simple keyword-based responses
+            if (userInput.toLowerCase().includes('hello')) {
+                botResponse = 'Hello! How can I help you ?';
+            } else if (userInput.toLowerCase().includes('how are you')) {
+                botResponse = 'I am just a bot, but I am here to help you!';
+            }else if (userInput.toLowerCase().includes('how can i pay fees')) {
+                botResponse = 'You Can Pay Online/In the Office';
+            }else if (userInput.toLowerCase().includes('how to talk with principal')) {
+                botResponse = 'In the Principal Office';
+            }else if (userInput.toLowerCase().includes('Admission procedure')) {
+                botResponse = '1.Fill the form / 2.Submit the required papers / For more info visit:www.sanskaarintlschool.in';
+            }else if (userInput.toLowerCase().includes('your creator')) {
+                botResponse = 'ΛΉMΛD';
+            }
+             else if (userInput.toLowerCase().includes('your name')) {
+                botResponse = 'I am Flexbot created with JavaScript.';
+            } else {
+                botResponse = 'Sorry, I did not understand that. Can you please rephrase?';
+            }
+
+            displayMessage(botResponse, 'bot');
+        }
+
+    </script>
+</body>
+
+</html>
